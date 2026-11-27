@@ -1,0 +1,27 @@
+name: webp-lossy
+description: A bug, a file that decodes wrongly, or a feature request for the webp-lossy crate.
+labels: ["webp-lossy"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security problems: please report them privately (Security tab, "Report a vulnerability"), not here.
+  - type: input
+    id: version
+    attributes:
+      label: webp-lossy version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: The settings (Config), the input size and kind (RGBA, RGB, 4:2:0, animation), and the decoder that shows the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: A small program or input picture, if you can share one.

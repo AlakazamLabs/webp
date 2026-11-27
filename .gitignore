@@ -1,0 +1,9 @@
+/target
+/fuzz/target
+/fuzz/corpus
+/fuzz/artifacts
+/out
+/refs
+/ci/browser/node_modules
+/ci/browser/files
+/.ci-cache

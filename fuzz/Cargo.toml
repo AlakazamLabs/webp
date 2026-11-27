@@ -1,0 +1,36 @@
+[package]
+name = "webp-lossy-fuzz"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT OR Apache-2.0"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+webp-lossy = { path = "../webp-lossy", features = ["vp8l"] }
+
+[[bin]]
+name = "still"
+path = "fuzz_targets/still.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "tiny"
+path = "fuzz_targets/tiny.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "anim"
+path = "fuzz_targets/anim.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]

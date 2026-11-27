@@ -1,0 +1,7 @@
+[workspace]
+members = ["webp-lossy", "oracle"]
+exclude = ["fuzz"]
+resolver = "2"
+
+[profile.release]
+debug = 1

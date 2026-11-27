@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>webp check</title>
+<script type="module">
+// Decodes ?f=<file> with WebCodecs' ImageDecoder (the browser's own WebP
+// decoder) and returns every frame's RGBA, base64, in window.result.
+const params = new URLSearchParams(location.search);
+const f = params.get('f');
+async function run() {
+  const data = await (await fetch('/files/' + encodeURIComponent(f))).arrayBuffer();
+  const dec = new ImageDecoder({ data, type: 'image/webp', colorSpaceConversion: 'none', premultiplyAlpha: 'none' });
+  await dec.tracks.ready;
+  const track = dec.tracks.selectedTrack;
+  const frames = [];
+  for (let i = 0; i < track.frameCount; i++) {
+    const { image } = await dec.decode({ frameIndex: i });
+    const w = image.displayWidth, h = image.displayHeight;
+    // The decoder's own pixels, with no format conversion: 4:2:0 planes
+    // (I420, I420A) for lossy stills, RGB formats for composited frames.
+    const format = image.format;
+    const buf = new Uint8Array(image.allocationSize());
+    const layout = await image.copyTo(buf);
+    image.close();
+    let s = '';
+    for (let k = 0; k < buf.length; k += 0x8000) s += String.fromCharCode.apply(null, buf.subarray(k, k + 0x8000));
+    frames.push({ w, h, format, layout, data: btoa(s) });
+  }
+  return { ok: true, frameCount: track.frameCount, animated: track.animated, frames };
+}
+run().then((r) => (window.result = r), (e) => (window.result = { ok: false, error: String(e) }));
+</script>

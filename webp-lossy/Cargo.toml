@@ -1,0 +1,33 @@
+[package]
+name = "webp-lossy"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.80.1"
+license = "MIT OR Apache-2.0"
+description = "A lossy and animated WebP encoder in pure, safe Rust: VP8 key frames with rate-distortion optimisation, alpha, metadata and animation."
+authors = ["Alakazam Labs"]
+readme = "README.md"
+repository = "https://github.com/AlakazamLabs/webp"
+homepage = "https://github.com/AlakazamLabs/webp/tree/main/webp-lossy"
+documentation = "https://docs.rs/webp-lossy"
+keywords = ["webp", "image", "encoder", "vp8", "animation"]
+categories = ["multimedia::images", "multimedia::encoding", "encoding"]
+include = ["/src/", "/README.md", "/CHANGELOG.md", "/PROVENANCE.md", "/LICENSE-MIT", "/LICENSE-APACHE"]
+
+[features]
+default = []
+# Compressed alpha and lossless animation frames, through image-webp's
+# lossless (VP8L) encoder.
+vp8l = ["dep:image-webp"]
+
+[dependencies]
+image-webp = { version = "0.2", optional = true }
+
+[dev-dependencies]
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+
+[package.metadata.docs.rs]
+all-features = true
+
+[lints.rust]
+missing_docs = "warn"

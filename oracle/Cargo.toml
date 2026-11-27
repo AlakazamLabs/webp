@@ -1,0 +1,19 @@
+[package]
+name = "webp-oracle"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.80"
+publish = false
+license = "MIT OR Apache-2.0"
+description = "Checks webp-lossy against outside decoders and encoders run as separate processes (not published)."
+
+[dependencies]
+webp-lossy = { path = "../webp-lossy", features = ["vp8l"] }
+image-webp = "0.2"
+png = "0.17"
+ssimulacra2 = "0.5"
+
+[lints.clippy]
+needless_range_loop = "allow"
+collapsible_match = "allow"
+neg_cmp_op_on_partial_ord = "allow"
